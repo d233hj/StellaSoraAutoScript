@@ -82,7 +82,7 @@ class AdbTool:
             template, kp1, screen, kp2, good_matches, None, **draw_params
         )
         cv2.imwrite(filename, img_matches)
-        print(f"匹配结果已保存到 {filename}")
+        #print(f"匹配结果已保存到 {filename}")
 
     def __image_to_position(self, screen, template):
         """
@@ -117,9 +117,7 @@ class AdbTool:
             if m.distance < 0.75 * n.distance:
                 good_matches.append(m)
 
-        print(
-            f"SIFT特征点匹配数量: {len(good_matches)}, 匹配率: {len(good_matches) / max(len(kp1), 1):.2f}"
-        )
+        #print(    f"SIFT特征点匹配数量: {len(good_matches)}, 匹配率: {len(good_matches) / max(len(kp1), 1):.2f}")
         self.__max_val = len(good_matches) / max(len(kp1), 1)
         if len(good_matches) > 0 and self.__max_val > 0.2:
             points = [kp2[m.trainIdx].pt for m in good_matches]

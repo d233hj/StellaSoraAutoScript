@@ -45,6 +45,12 @@ class Zaibian:
         while True:
 
             if timeout <= 0:
+                if self.adbtool.research_img(
+                    self.imgNomal.getImg("zhandouZ1").getImg(), "zhandouZ1"
+                ):
+                    self.adbtool.adb_click(center=(700, 700))
+                    timeout = 10
+                    continue
                 print("#1#寻找战斗超时，退出")
                 return False
             # 寻找进图按钮
@@ -199,10 +205,11 @@ class Zaibian:
         )
         self.database.writeDb()
         print(
-            "--# all Cards:"
+            "-------<< all Cards:"
             + str(self.database.data["gamecards"])
             + "| New Cards:"
             + str(self.database.data["newcard"])
             + "| Last Card:"
             + str(self.database.data["lastcard"])
+            +">>-------"
         )
