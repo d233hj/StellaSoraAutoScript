@@ -33,6 +33,9 @@ class Zaibian:
             self.zaibian()
             self.__fightTime += 1
             times -= 1
+            if self.database.data["newcard"] == self.database.data["gamecards"]:
+                print("检测到图鉴卡已经集齐，停止脚本")
+                return True
 
         return True
 
@@ -115,7 +118,7 @@ class Zaibian:
                 if timeout <= 0:
                     print("#3#选卡超时，退出")
                     return False
-                
+
             # 点击未收录卡牌
             if self.adbtool.apper_to_click(
                 self.imgNomal.getImg("weishouL").getImg(), "weishouL"
@@ -133,7 +136,7 @@ class Zaibian:
                 self.__newcard += 1
                 self.__lastcard = 0
                 return True
-            
+
             # 点击刷新
             if self.adbtool.apper_to_click(
                 self.imgNomal.getImg("shuaxin").getImg(), "shuaxin"
@@ -141,7 +144,7 @@ class Zaibian:
                 self.__cardsTime += 1
                 time.sleep(1)
                 continue
-            
+
             # 选择已有卡牌
             if self.adbtool.apper_to_click(
                 self.imgNomal.getImg("xuanka").getImg(), "xuanka","sift"
