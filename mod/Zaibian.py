@@ -14,11 +14,12 @@ class Zaibian:
         self.imgNomal = ImgMaster()
         self.adbtool = AdbTool()
         self.database = Database()
+        self.database.loadDb()
         # 计数
-        self.__cardsTime = 0
+        self.__cardsTime = self.database.data["cardsTime"]
         self.__fightTime = 0
-        self.__newcard = 0
-        self.__lastcard = 0
+        self.__newcard = self.database.data["newcard"]
+        self.__lastcard = self.database.data["lastcard"]
         # 计时
         self._startTime_ = 0
 
@@ -40,7 +41,7 @@ class Zaibian:
         return True
 
     def zaibian(self):
-        timeout = 20
+        timeout = 10
         # 进入战斗
         while True:
 
@@ -86,7 +87,8 @@ class Zaibian:
             elif self.adbtool.research_img(
                 self.imgNomal.getImg("xuanka").getImg(), "xuanka","sift"
             ):
-                self.__xuanka()
+                if self.__xuanka():
+                    timeout = 10
                 time.sleep(5)
                 continue
             # 战斗结束
@@ -198,18 +200,18 @@ class Zaibian:
         self.database.data.update(
             {
                 "gamecards": self.database.data["gamecards"],
-                "newcard": self.__newcard + self.database.data["newcard"],
-                "cardsTime": self.__cardsTime + self.database.data["cardsTime"],
+                "newcard": self.__newcard ,
+                "cardsTime": self.__cardsTime ,
                 "lastcard": self.__lastcard,
             }
         )
         self.database.writeDb()
         print(
-            "-------<< all Cards:"
+            "-------<< all Cards: "
             + str(self.database.data["gamecards"])
-            + "| New Cards:"
+            + " | New Cards: "
             + str(self.database.data["newcard"])
-            + "| Last Card:"
+            + " | Last Card: "
             + str(self.database.data["lastcard"])
-            +">>-------"
+            +" >>-------"
         )
