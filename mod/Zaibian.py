@@ -29,10 +29,10 @@ class Zaibian:
         self._startTimeStr__ = datetime.datetime.now()
         allTimes = times
         while times > 0:
+            self.__fightTime += 1
             self.timecat(allTimes)
             self.timecount()
             self.zaibian()
-            self.__fightTime += 1
             times -= 1
             if self.database.data["newcard"] == self.database.data["gamecards"]:
                 print("检测到图鉴卡已经集齐，停止脚本")
@@ -177,7 +177,7 @@ class Zaibian:
         timenow = time.perf_counter()
         costtime = timenow - self._startTime__
         futuretime = (
-            float(self.__fightTime) / (allTimes - self.__fightTime)
+            float(allTimes - self.__fightTime) / (self.__fightTime)
         ) * costtime
 
         hours = int(futuretime // 3600)
