@@ -85,7 +85,7 @@ class Zaibian:
                 continue
             # 选卡逻辑
             elif self.adbtool.research_img(
-                self.imgNomal.getImg("xuanka").getImg(), "xuanka","sift"
+                self.imgNomal.getImg("xuanka").getImg(), "xuanka", "sift"
             ):
                 if self.__xuanka():
                     timeout = 10
@@ -94,6 +94,8 @@ class Zaibian:
             # 战斗结束
             if self.adbtool.research_img(
                 self.imgNomal.getImg("chonxinZD").getImg(), "chonxinZD"
+            ) or self.adbtool.research_img(
+                self.imgNomal.getImg("jiesuan").getImg(), "jiesuan"
             ):
                 self.adbtool.apper_to_click(
                     self.imgNomal.getImg("quxiao").getImg(), "quxiao"
@@ -119,7 +121,7 @@ class Zaibian:
         while True:
             # 确认是否存在选卡界面
             if not self.adbtool.research_img(
-                self.imgNomal.getImg("xuanka").getImg(), "xuanka","sift"
+                self.imgNomal.getImg("xuanka").getImg(), "xuanka", "sift"
             ):
                 timeout -= 1
                 time.sleep(4)
@@ -155,7 +157,7 @@ class Zaibian:
 
             # 选择已有卡牌
             if self.adbtool.apper_to_click(
-                self.imgNomal.getImg("xuanka").getImg(), "xuanka","sift"
+                self.imgNomal.getImg("xuanka").getImg(), "xuanka", "sift"
             ):
                 timeout1 = 5
                 while True:
@@ -200,8 +202,8 @@ class Zaibian:
         self.database.data.update(
             {
                 "gamecards": self.database.data["gamecards"],
-                "newcard": self.__newcard ,
-                "cardsTime": self.__cardsTime ,
+                "newcard": self.__newcard,
+                "cardsTime": self.__cardsTime,
                 "lastcard": self.__lastcard,
             }
         )
@@ -213,5 +215,5 @@ class Zaibian:
             + str(self.database.data["newcard"])
             + " | Last Card: "
             + str(self.database.data["lastcard"])
-            +" >>-------"
+            + " >>-------"
         )
